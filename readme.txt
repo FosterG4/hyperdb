@@ -1,3 +1,89 @@
+==== Indonesia Tutorial ===
+
+Tutor Untuk Wordpress
+
+Pastikan kamu punya minimal 2 server Database (master to master config)
+
+
+
+1. install git 
+	apt -y install git (Debian,Ubuntu)
+	yum -y install git (Centos,Redhat)
+2. clone reponya
+	git clone https://github.com/FosterG4/hyperdb.git /opt/hyperdb
+
+3. copy file db-config.php ke direktory root website/situs anda tempat dimana wp-config.php berada
+	cd /opt/hyperdb
+	cp db-config.php /var/www/html/	
+
+4. copy file db.php ke direktori wp-content
+	cp db.php /var/www/html/wp-content
+
+5. edit db-config.php lalu cari bagian di bawah ini :
+
+$wpdb->add_database(array(
+	'host'     => DB_HOST,     // If port is other than 3306, use host:port.
+	'user'     => DB_USER,
+	'password' => DB_PASSWORD,
+	'name'     => DB_NAME,
+));
+
+/**
+ * This adds the same server again, only this time it is configured as a slave.
+ * The last three parameters are set to the defaults but are shown for clarity.
+ */
+$wpdb->add_database(array(
+	'host'     => DB_HOST,     // If port is other than 3306, use host:port.
+	'user'     => DB_USER,
+	'password' => DB_PASSWORD,
+	'name'     => DB_NAME,
+	'write'    => 0,
+	'read'     => 1,
+	'dataset'  => 'global',
+	'timeout'  => 0.2,
+));
+
+6. Ubah pada bagian 'host' => DB_HOST, ke dua (2) menjadi 'host' => SLAVE_HOST, 
+	maka akan mejadi seperti ini :
+
+$wpdb->add_database(array(
+        'host'     => DB_HOST,     // If port is other than 3306, use host:port.
+        'user'     => DB_USER,
+        'password' => DB_PASSWORD,
+        'name'     => DB_NAME,
+));
+
+/**
+ * This adds the same server again, only this time it is configured as a slave.
+ * The last three parameters are set to the defaults but are shown for clarity.
+ */
+$wpdb->add_database(array(
+        'host'     => SLAVE_HOST,     // If port is other than 3306, use host:port.
+        'user'     => DB_USER,
+        'password' => DB_PASSWORD,
+        'name'     => DB_NAME,
+        'write'    => 1,
+        'read'     => 1,
+        'dataset'  => 'global',
+        'timeout'  => 0.2,
+));
+
+7. tambahkan ip slave ke wp-config.php anda
+	
+	echo "define('SLAVE_HOST','IP_ADDRESS_OF_SLAVE');" | sudo tee -a /var/www/xci/wp-config.php
+	( edit bagian IP_ADDRESS_OF_SLAVE menjadi IP server database anda )
+
+8. Selesai, anda bisa mencobanya dengan mematikan/disable server database utama anda.
+
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
 === HyperDB ===
 Contributors: matt, andy, ryan, mdawaffe, vnsavage, barry, westi, automattic
 Tags: mysql, scaling, performance, availability, WordPress.com
