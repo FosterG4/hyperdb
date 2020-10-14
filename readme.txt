@@ -1,5 +1,7 @@
 ==== Indonesia Tutorial ===
 
+#By Gaang
+
 Tutor Untuk Wordpress
 
 Pastikan kamu punya minimal 2 server Database (master to master config)
