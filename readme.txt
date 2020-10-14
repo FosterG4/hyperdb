@@ -70,7 +70,7 @@ $wpdb->add_database(array(
 
 7. tambahkan ip slave ke wp-config.php anda
 	
-	echo "define('SLAVE_HOST','IP_ADDRESS_OF_SLAVE');" | sudo tee -a /var/www/xci/wp-config.php
+	echo "define('SLAVE_HOST','IP_ADDRESS_OF_SLAVE');" | sudo tee -a /var/www/html/wp-config.php
 	( edit bagian IP_ADDRESS_OF_SLAVE menjadi IP server database anda )
 
 8. Selesai, anda bisa mencobanya dengan mematikan/disable server database utama anda.
