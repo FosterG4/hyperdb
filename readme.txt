@@ -2,7 +2,7 @@
 
 #By Gaang
 
-Tutor Untuk Wordpress
+Tutorial Setup hyperdb wordress
 
 Pastikan kamu punya minimal 2 server Database (master to master config)
 
